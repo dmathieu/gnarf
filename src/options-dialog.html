@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Options</title>
+
+  <style>
+    .gnarf-fieldset {
+      margin-bottom: 5px;
+    }
+    .gnarf-tabpane-buttons {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div id="paneGeneral">
+    <fieldset class="gnarf-fieldset" role="group">
+      <legend id="legendApp">GitHub</legend>
+
+        <div class="gnarf-field">
+          <label class="token">GitHub Token</label>
+          <input type="text" data-settings="github-token"></input>
+        </div>
+
+      </fieldset>
+    </div>
+
+  <div class="gnarf-tabpane-buttons">
+    <button id="buttonSave" tabindex="0">Ok</button>
+    <button id="buttonCancel" tabindex="0">Cancel</button>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
