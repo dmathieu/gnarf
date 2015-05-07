@@ -1,56 +1,41 @@
 (function() {
   "use strict";
-  var notification;
+  var notifications = [];
 
-  var updateNotificationsCount = function() {
-    chrome.storage.sync.get('options', function(data) {
-      var token = data.options.githubToken;
-      var github = new Github({
-        token: token,
-        auth: "oauth"
-      });
-      var user = github.getUser();
+  var updateCount = function() {
+    var count = notifications.length;
+    var text = '';
 
-      if (typeof(token) === 'undefined') {
-        return
-      }
+    if (count > 9999) {
+      text = '∞';
+    } else if (count > 0) {
+      text = count.toString();
+    }
 
-      user.notifications(function(err, notifications) {
-        var count = notifications.length;
-        var text  = '';
-
-        if (count > 9999) {
-          text = '∞';
-        } else if (count > 0) {
-          text = count.toString();
-        }
-
-        if (count > 0) {
-          notification = notifications[0];
-        } else {
-          notification = undefined;
-        }
-
-        chrome.browserAction.setBadgeText({
-          text: text
-        });
-      });
+    chrome.browserAction.setBadgeText({
+      text: text
     });
   }
 
-  chrome.browserAction.setBadgeText({
-    text: '∞'
-  });
+  var updateNotifications = function() {
+    Notifications.getNotifications().then(function(n) {
+      notifications = n;
+      updateCount();
+    }, function(error) {
+      console.error(error);
+    });
+  }
 
   chrome.browserAction.setBadgeBackgroundColor({
     color: [65, 131, 196, 255]
   });
 
   chrome.browserAction.onClicked.addListener(function(tab) {
-    if (typeof(notification) == 'undefined') {
+    if (notifications.length == 0) {
       return;
     }
 
+    var notification = notifications[0];
     var origin = notification['subject']['url'].split('/');
     var type   = notification['subject']['type'];
     var id     = origin[origin.length - 1];
@@ -67,12 +52,12 @@
     } else {
       chrome.tabs.create({url: url});
     }
-
-    setTimeout(updateNotificationsCount, 5000);
+    notifications.shift();
+    updateCount();
   });
 
 
-  updateNotificationsCount();
+  updateNotifications();
   chrome.alarms.create({periodInMinutes: 1});
-  chrome.alarms.onAlarm.addListener(updateNotificationsCount);
+  chrome.alarms.onAlarm.addListener(updateNotifications);
 }());

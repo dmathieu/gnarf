@@ -30,6 +30,7 @@
   "background": {
     "scripts": [
       "src/github.js",
+      "src/notifications.js",
       "src/background.js"
     ]
   }
