@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "GitHub Narf",
-  "version": "0.1",
+  "version": "0.2",
   "options_page": "src/options.html",
   "options_ui": {
     "page": "src/options-dialog.html",
