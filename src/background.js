@@ -63,7 +63,7 @@
   });
 
   chrome.browserAction.onClicked.addListener(function(tab) {
-    gotoNextNotification(tab);
+    goToNextNotification(tab);
   });
 
   updateNotifications();
