@@ -23,6 +23,9 @@ var Notifications = {
 
     return new Promise(function(resolve, reject) {
       chrome.storage.sync.get('options', function(data) {
+        if (data.options === undefined) {
+          return;
+        }
         var token = data.options.githubToken;
 
         if (typeof(token) === 'undefined') {

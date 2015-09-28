@@ -17,7 +17,8 @@
   "permissions": [
     "<all_urls>",
     "storage",
-    "alarms"
+    "alarms",
+    "tabs"
   ],
 
   "browser_action": {
@@ -33,5 +34,15 @@
       "src/notifications.js",
       "src/background.js"
     ]
+  },
+
+  "commands": {
+    "next-notification": {
+      "suggested_key": {
+        "default": "Ctrl+G",
+        "mac": "Command+G"
+      },
+      "description": "Load the next github notification"
+    }
   }
 }
