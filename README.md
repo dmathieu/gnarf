@@ -1,5 +1,7 @@
 # gnarf
 
+[See it in the Chrome Store](https://chrome.google.com/webstore/detail/github-narf/aaejinfblmkfjaghgjphbleonomkofgf)
+
 ## What is it?
 
 Gnarf is a chrome extension which displays if you have unread GitHub notifications,
